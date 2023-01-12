@@ -23,6 +23,13 @@ Before getting started, you'll need some R packages. You will need to install `t
 ```r
 install.packages(c("targets", "tarchetypes"))
 ```
+If you see the following error: 
+```r
+Warning in install.packages :
+  unable to access index for repository https://cran.rstudio.com/src/contrib:
+  cannot open URL 'https://cran.rstudio.com/src/contrib/PACKAGES'
+  ```
+then your firewall may be blocking the installation of R packages. Disconnect from VPN and try again.
 
 While you are at it, please install a few other packages that you'll use along the way:
 
