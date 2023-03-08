@@ -1,6 +1,3 @@
-#Set the working directory to the path where this script is stored.
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
 source("src/input_functions.R")
 
 #Install/load packages

@@ -14,8 +14,10 @@ check.packages <- function(pkg){
 #' @param SB_item_file - the USGS ScienceBase item number that corresponds to a file
 #' @return a file pulled from ScienceBase and saved locally as CSV
 #' 
-get.SBfile <- function(outpath,SB_item_file){
+get.SBfile <- function(outpath,SBFileNames, SB_item_ID){
   mendota_file <- file.path(outpath, 'model_RMSEs.csv')
-  return(item_file_download(SB_item_file, names = 'me_RMSE.csv', destinations = mendota_file, overwrite_file = TRUE))
+  return(item_file_download(SB_item_ID, names = SBFileNames, destinations = mendota_file, overwrite_file = TRUE))
 }
+
+
 

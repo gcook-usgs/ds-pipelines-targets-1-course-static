@@ -17,11 +17,5 @@ read.format.infile <- function(RMSE_file){
   return(RMSE.out)
 }
 
-#' @description a basic write csv function
-#' @param in_df the in memory dataframe to write locally as csv
-#' @return a locally saved CSV file
 
-out.csv <- function(in_df, outfile){
-  readr::write_csv(in_df, outfile)
-}
 

@@ -32,7 +32,6 @@ plot_data <- function(outPathdir, eval_data){
     
     lines(d$x + tail(offsets[[mod]], nrow(d)), d$y, col = d$col[1], lty = 'dashed')
     points(d$x + tail(offsets[[mod]], nrow(d)), d$y, pch = d$pch[1], col = d$col[1], bg = 'white', lwd = 2.5, cex = 1.5)
-    
   }
   
   points(2.2, 0.79, col = '#7570b3', pch = 23, bg = 'white', lwd = 2.5, cex = 1.5)
@@ -45,7 +44,9 @@ plot_data <- function(outPathdir, eval_data){
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()
-  
+}
+
+write_output <- function(outPathdir, eval_data){
   readr::write_csv(eval_data, file = file.path(outPathdir, 'model_summary_results.csv'))
   
   
@@ -65,6 +66,4 @@ plot_data <- function(outPathdir, eval_data){
   The PGDL prediction accuracy was more robust compared to PB when only two profiles were provided for training ({{pgdl_2mean}} and {{pb_2mean}}°C, respectively). '
   
   whisker.render(template_1 %>% str_remove_all('\n') %>% str_replace_all('  ', ' '), render_data ) %>% cat(file = file.path(outPathdir, 'model_diagnostic_text.txt'))
-  
-  
 }

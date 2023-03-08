@@ -1,37 +1,34 @@
-#Set the working directory to the path where this script is stored.
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+source("1_fetch/src/input_functions.R")
+source("2_process/src/format_functions.R")
+source("3_visualize/src/graph_functions.R")
 
 ###################### 1_fetch
-source("1_fetch/src/input_functions.R")
-
 #Install/load packages
 packages<-c("dplyr", "readr", "stringr", "sbtools", "whisker")
 check.packages(packages)
 
-outPath1 <- "C://Projects/ds-pipelines-targets-1-course-static/1_fetch/out"
+outPath <- "1_fetch/out"
+SBFileName <- "me_RMSE.csv"
+SB_itemID <- '5d925066e4b0c4f70d0d0599'
 #Fetch the ScienceBase file and save as CSV
-get.SBfile(outPath1, '5d925066e4b0c4f70d0d0599')
+get.SBfile(outPath, SBFileName, SB_itemID)
 
 ############## 2_process
-source("2_process/src/format_functions.R")
-
-inPath2 <- "C://Projects/ds-pipelines-targets-1-course-static/1_fetch/out"
-infile2 <- file.path(inPath2,"model_RMSEs.csv")
+inFile <- file.path(outPath,"model_RMSEs.csv")
 
 #use function to reformat the input file and prep it for visualization
-out.prepped <- read.format.infile(infile2)
+out.prepped <- read.format.infile(inFile)
 
-outPath2 <- "C://Projects/ds-pipelines-targets-1-course-static/2_process/out"
-outfile2 <- file.path(outPath,"RMSE_prepped.csv")
+outPath2 <- "2_process/out"
+outfile2 <- file.path(outPath2,"RMSE_prepped.csv")
 
 #Write the prepped file
-out.csv(out.prepped,outfile2)
+readr::write_csv(out.prepped,outfile2)
 
 ########### 3_visualize
-source("3_visualize/src/graph_functions.R")
-
-outPath3 <- "C://Projects/ds-pipelines-targets-1-course-static/3_visualize/out"
-plot_data(outPath3,eval_data)
+outPath3 <- "3_visualize/out"
+plot_data(outPath3,out.prepped)
+write_output(outPath3, out.prepped)
 
 
 
