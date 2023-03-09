@@ -2,8 +2,8 @@
 #' @param outPathdir - the filepath for the output directory
 #' @param eval_data - model results dataframe
 
-plot_data <- function(outPathdir, eval_data){
-  png(file = file.path(outPathdir, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
+plot_data <- function(outPNG, eval_data){
+  png(file = outPNG, width = 8, height = 10, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
   
   plot(NA, NA, xlim = c(2, 1000), ylim = c(4.7, 0.75),
@@ -44,12 +44,10 @@ plot_data <- function(outPathdir, eval_data){
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()
+  return(outPNG)
 }
 
 write_output <- function(outPathdir, eval_data){
-  readr::write_csv(eval_data, file = file.path(outPathdir, 'model_summary_results.csv'))
-  
-  
   render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
                       dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
                       pb_980mean = filter(eval_data, model_type == 'pb', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
