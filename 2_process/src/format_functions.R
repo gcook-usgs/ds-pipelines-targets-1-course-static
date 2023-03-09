@@ -2,7 +2,7 @@
 #' @param RMSE_file the local csv file to read and format
 #' @return RMSE.out: a dataframe of reformatted data
 
-read.format.infile <- function(RMSE_file){
+process.infile <- function(RMSE_file){
   RMSE.out <- readr::read_csv(RMSE_file, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
